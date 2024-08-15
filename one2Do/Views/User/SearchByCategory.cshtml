@@ -1,0 +1,22 @@
+@model IEnumerable<one2Do.Models.ListTemplate>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h2>Search Results for "@ViewData["Category"]"</h2>
+<p>Here are the lists that match your search criteria.</p>
+
+@if (Model != null && Model.Any())
+{
+    <ul>
+        @foreach (var list in Model)
+        {
+            <li>@list.Title</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No lists found for the selected category.</p>
+}

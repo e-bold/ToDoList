@@ -1,0 +1,22 @@
+@using one2Do.Models
+
+@{
+
+}
+
+<h1> Wanna Choose a Template? </h1>
+<div>
+    <p>
+        Here's some imaginary templates to choose from.
+    </p>
+</div>
+
+<div>
+    <form method = "get">
+                <button asp-controller="user" asp-action="index" class="btn btn-info"> Back to Profile</button>
+            </form>   
+<br> 
+    <form method = "get">
+                <button asp-controller="ListTemplate" asp-action="index" class="btn btn-info"> Choose Template to Edit</button>
+            </form>   
+</div>

@@ -1,0 +1,61 @@
+@model one2Do.WeatherModel.City
+
+@{
+    ViewData["Title"] = "City";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-3 mx-auto"> <!-- Centering the card -->
+            <div class="card">
+                <div class="card-body text-center"> <!-- Centering the card content -->
+                    <h3>
+                        @Model.Name
+                        <img src="@Model.Icon" alt="Weather Icon" class="weather-icon">
+                    </h3>
+                    <div class="d-flex align-items-center justify-content-center mt-2">
+                        <span class="badge alert-primary temperature-badge">@Model.Temperature °F</span>
+                    </div>
+                    <h2></h2>
+                    <table class="table table-bordered"> <!-- Adding borders to the table -->
+                        <tbody>
+                            <tr>
+                                <th scope="row">Condition</th>
+                                <td>
+                                    <span class="badge alert-primary capitalize-text">
+                                        @Model.Description
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Min/Max</th>
+                                <td><span class="badge alert-primary">@Model.Temp_min °F / @Model.Temp_max °F</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Humidity</th>
+                                <td><span class="badge alert-primary">@Model.Humidity %</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Pressure</th>
+                                <td><span class="badge alert-primary">@Model.Pressure hPa</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Wind Speed</th>
+                                <td><span class="badge alert-primary">@Model.Wind mph</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Clouds</th>
+                                <td><span class="badge alert-primary">@Model.Clouds %</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6 mb-3 mx-auto text-center"> <!-- Centering the button -->
+                    <form method="get">
+                        <button asp-controller="Weather" asp-action="SearchByCity" class="btn btn-danger btn-sm">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

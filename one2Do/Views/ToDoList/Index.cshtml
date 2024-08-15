@@ -1,0 +1,53 @@
+@model one2Do.ViewModels.ToDoListViewModel
+
+
+<h2>ToDo Lists</h2>
+
+   
+@foreach (var list in Model.ToDoItems)
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            
+            <h3>@list.Title</h3>
+            <p>Category: @list.CategoryName</p>
+            <p class="progress-tacker">@list.CompletedTasks of @list.TotalTasks tasks completed!</p>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Task Description</th>
+                        <th>Due Date</th>
+                        <th>Completed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var task in list.TaskItems)
+                {
+                    <tr>
+                        <td>@task.TaskDescription</td>
+                        <td>@(task.DueDate.HasValue ? task.DueDate.Value.ToShortDateString() : "No Due Date")</td>
+                        <td>@task.IsCompleted</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            <form method="get" asp-controller="TaskItem" asp-action="Create">
+                <input type="hidden" name="toDoListId" value="@list.ToDoListId" />
+                <button type="submit" class="btn btn-info">Add Task</button>
+            </form>
+            <br>
+            
+        </div>
+    </div>
+    
+}
+<br>
+<form method="get">
+        <button asp-controller="User" asp-action ="Index" class="btn btn-info">Back to Profile</button>
+    </form>
+<br>
+ <form method="get">
+        <button asp-controller="ToDoList" asp-action="Create" class="btn btn-info">Create New List</button>
+    </form>

@@ -1,0 +1,52 @@
+@model one2Do.WeatherModel.SearchByCity
+
+@{
+    ViewData["Title"] = "Search by city";
+}
+
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+    .fullscreen-container {
+        height: 100vh; /* Full viewport height */
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url('/images/weather-background.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+    .card {
+        background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background for better readability */
+    }
+</style>
+
+<div class="container text-center"> <!-- Centering the content -->
+    <form method="post">
+        <div class="container">
+            <h2>Search By City</h2>
+            <div class="input-group mb-3">
+                <input asp-for="CityName" class="form-control" placeholder="Enter city name..." />
+
+
+                <div class="input-group-append">
+                    <button asp-controller="Weather" asp-action="SearchByCity" class="btn btn-success" type="submit">
+                        Search
+                    </button>
+                </div>
+
+                <span asp-validation-for="CityName" class="text-danger"></span>
+            </div>
+        </div>
+    </form>
+
+    
+</div>
+
+<br>
+
+

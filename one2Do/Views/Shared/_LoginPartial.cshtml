@@ -1,0 +1,42 @@
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+    User user = null;
+    if (SignInManager.IsSignedIn(User))
+    {
+        user = UserManager.GetUserAsync(User).Result;
+    }
+}
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 10px;"> 
+                @user.FirstName @user.LastName 
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li class="nav-item">
+                    <a id="manage" class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage account</a>
+                </li>
+                <li>
+                    <a class="dropdown-item text-white bg-danger" asp-controller="Account" asp-action="Logout">
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="register" asp-area="" asp-controller="Account" asp-action="Register">Create an Account</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="login" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+    }
+</ul>

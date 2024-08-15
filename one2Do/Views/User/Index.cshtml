@@ -1,0 +1,36 @@
+@using Microsoft.AspNetCore.Identity
+
+@* @inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager *@
+@{
+    ViewData["Title"] = "User";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.FirstName @Model.LastName's Profile</h1>
+    @if (User.IsInRole("Premium"))
+    {
+        <p>Streak Points: @Model.StreakPoints</p>
+    }
+</div>
+
+<div>
+    <p>@ViewData["Quote"]</p> <!-- Display the random quote here -->
+
+    <form method="get">
+        <button asp-controller="ToDoList" asp-action="Create" class="btn btn-info">Create New List</button>
+    </form>
+    <br>
+    <form method="get">
+        <button asp-controller="ToDoList" asp-action="Index" class="btn btn-info">Your Lists</button>
+    </form>
+    <br>
+    <form method="get">
+        <button asp-controller="ChooseTemplate" asp-action="Index" class="btn btn-info">View Generic Templates</button>
+    </form>
+    <br>
+
+
+</div>
+
+

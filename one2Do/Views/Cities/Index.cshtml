@@ -1,0 +1,94 @@
+@model List<one2Do.WeatherModel.City>
+
+@{
+    ViewData["Title"] = "Manage Cities";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <h2 class="text-center">Search by Cities</h2>
+        </div>
+    </div>
+
+    <!-- Form to add a new city -->
+    <div class="row mb-3">
+        <div class="col-md-6 mx-auto">
+            <form asp-action="AddCity" method="post">
+                <div class="input-group">
+                    <input type="text" id="cityName" name="cityName" class="form-control" placeholder="Enter city name"
+                        required />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        @foreach (var city in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body text-center"> <!-- Centering the card content -->
+                        <h3 >
+                            @city.Name
+                            <img src="@city.Icon" alt="Weather Icon" class="weather-icon">
+                        </h3>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <span class="badge alert-primary temperature-badge">@city.Temperature °F</span>
+                        </div>
+                        <h2></h2>
+                        <table class="table table-bordered"> <!-- Adding borders to the table -->
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Condition</th>
+                                    <td>
+                                        <span class="badge alert-primary capitalize-text">
+                                            @city.Description
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Min/Max</th>
+                                    <td><span class="badge alert-primary">@city.Temp_min °F / @city.Temp_max °F</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Humidity</th>
+                                    <td><span class="badge alert-primary">@city.Humidity %</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Pressure</th>
+                                    <td><span class="badge alert-primary">@city.Pressure hPa</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Wind Speed</th>
+                                    <td><span class="badge alert-primary">@city.Wind mph</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Clouds</th>
+                                    <td><span class="badge alert-primary">@city.Clouds %</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <form asp-action="RemoveCity" method="post"
+                            onsubmit="return confirm('Are you sure you want to remove this city?');">
+                            <input type="hidden" name="cityName" value="@city.Name" />
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p>No cities added yet.</p>
+            </div>
+        </div>
+    }

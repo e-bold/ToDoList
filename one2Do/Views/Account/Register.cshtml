@@ -1,0 +1,73 @@
+@using one2Do.ViewModels; 
+@using System;
+
+@model RegisterViewModel
+
+@{
+ViewData["Title"] = "Register";
+}
+
+
+<div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-3 card p-3">
+        <h2 class="text-center text-info">Register</h2>
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="mb-1">
+                <label asp-for="FirstName" class="control-label">First Name</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span> 
+            </div>
+            <div class="mb-1">
+                <label asp-for="LastName" class="control-label">Last Name</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span> 
+            </div>
+            <div class="mb-1">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span> 
+            </div>
+            <div class="mb-1">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            @* //2 user *@
+              <div class="form-floating">
+                <select asp-for="Role" asp-items="@Model.RoleList" class="form-select" aria-required="true">
+                    <option disabled selected>Select Role</option>
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div> 
+            
+            <div class="row">
+                <div class="col-8">
+                    <a asp-action="Login" class="text-decoration-none float-start mt-2">Have account?</a> 
+                </div>
+                <div class="col-4">
+                    <input type="submit" value="Register" class="btn btn-info btn-sm float-end"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<hr>
+<div class="center-content">
+    <h4 >Account Options:</h4>
+    <h6><strong><em>Basic</em></strong>: Includes all features MINUS the ability to collect streak points for logging in to your profile.</h6>
+    <h6><strong><em>Premium</em></strong>: Includes all features AND the ability to collect streak points for logging in to your profile.</h6>
+</div>
+    
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+ @* asp-controller="User" asp-action="index"  *@

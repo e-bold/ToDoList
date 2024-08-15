@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <p>Welcome, !</p>
+    <p>Redirecting you to the user dashboard...</p>
+    <script>window.location.href = '/User/Index';</script>
+
+}
+else
+{
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<body>
+    <div class="project-summary">
+        <h2>Welcome to one2Do!</h2>
+        <p>
+            Your all-in-one solution for organizing your life! Whether you're planning your week, tracking the weather, or archiving your favorite photos, <strong>one2Do</strong> is here to streamline your daily life.
+        </p>
+        
+        <div class="feature-container">
+            <div class="feature-item">
+                <img src="~/images/todo.png" alt="To-Do Lists">
+                <p>Organize your tasks and goals with our intuitive to-do list feature.</p>
+            </div>
+            
+            <div class="feature-item">
+                <img src="~/images/weather.png" alt="Weather Info">
+                <p>Get real-time weather updates to plan your day effectively.</p>
+            </div>
+            
+            <div class="feature-item">
+                <img src="~/images/imageupload.png" alt="Photo Upload">
+                <p>Securely upload and manage your photos with ease.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+}
