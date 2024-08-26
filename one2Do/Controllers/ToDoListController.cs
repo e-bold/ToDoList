@@ -47,7 +47,12 @@ namespace one2Do.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            viewModel.Categories = new SelectList(_context.Categories, "Id", "Name", viewModel.CategoryId);
+            viewModel.Categories = new SelectList(
+                _context.Categories,
+                "Id",
+                "Name",
+                viewModel.CategoryId
+            );
             return View(viewModel);
         }
 
@@ -55,28 +60,32 @@ namespace one2Do.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var toDoLists = await _context.ToDoLists
-                .Include(t => t.Category)
+            var toDoLists = await _context
+                .ToDoLists.Include(t => t.Category)
                 .Include(t => t.TaskItems)
                 .Where(t => t.UserId == userId)
                 .ToListAsync();
 
             var viewModel = new ToDoListViewModel
             {
-                ToDoItems = toDoLists.Select(t => new ToDoListItemViewModel
-                {
-                    ToDoListId = t.Id,
-                    Title = t.Title,
-                    TaskItems = t.TaskItems.Select(task => new TaskItemViewModel
+                ToDoItems = toDoLists
+                    .Select(t => new ToDoListItemViewModel
                     {
-                        TaskDescription = task.Description,
-                        DueDate = task.DueDate ?? DateTime.Now,
-                        IsCompleted = task.IsCompleted
-                    }).ToList(),
-                    CategoryName = t.Category?.Name ?? "No Category",
-                    TotalTasks = t.TaskItems.Count,
-                    CompletedTasks = t.TaskItems.Count(t => t.IsCompleted)
-                }).ToList(),
+                        ToDoListId = t.Id,
+                        Title = t.Title,
+                        TaskItems = t
+                            .TaskItems.Select(task => new TaskItemViewModel
+                            {
+                                TaskDescription = task.Description,
+                                DueDate = task.DueDate ?? DateTime.Now,
+                                IsCompleted = task.IsCompleted
+                            })
+                            .ToList(),
+                        CategoryName = t.Category?.Name ?? "No Category",
+                        TotalTasks = t.TaskItems.Count,
+                        CompletedTasks = t.TaskItems.Count(t => t.IsCompleted)
+                    })
+                    .ToList(),
             };
 
             return View(viewModel);
