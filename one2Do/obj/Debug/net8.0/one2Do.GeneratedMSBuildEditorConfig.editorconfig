@@ -74,10 +74,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Asus/Desktop/Stuff/Personal Projects/ToDoList/one2Do/Views/ChooseTemplate/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hvb3NlVGVtcGxhdGVcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Asus/Desktop/Stuff/Personal Projects/ToDoList/one2Do/Views/Cities/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0aWVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -88,10 +84,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Asus/Desktop/Stuff/Personal Projects/ToDoList/one2Do/Views/Image/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Asus/Desktop/Stuff/Personal Projects/ToDoList/one2Do/Views/ListTemplate/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlzdFRlbXBsYXRlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Asus/Desktop/Stuff/Personal Projects/ToDoList/one2Do/Views/Shared/Error.cshtml]
@@ -124,10 +116,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Asus/Desktop/Stuff/Personal Projects/ToDoList/one2Do/Views/User/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Asus/Desktop/Stuff/Personal Projects/ToDoList/one2Do/Views/User/SearchByCategory.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxTZWFyY2hCeUNhdGVnb3J5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Asus/Desktop/Stuff/Personal Projects/ToDoList/one2Do/Views/User/Todo.cshtml]

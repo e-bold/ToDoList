@@ -34,11 +34,6 @@ namespace one2Do.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            // Get a random quote from the database
-            var quote = _context.Quotes.OrderBy(q => EF.Functions.Random()).FirstOrDefault();
-
-            // Pass the quote to the view using ViewData
-            ViewData["Quote"] = quote?.Text;
 
             return View(user);
         }
@@ -48,24 +43,6 @@ namespace one2Do.Controllers
         {
             return View();
         }
-
-        // Action to handle search by category
-        [HttpPost]
-        public IActionResult SearchByCategory(string category)
-        {
-            var lists = _context.ListTemplates
-                .Include(lt => lt.TaskItems)
-                .Include(lt => lt.ListTemplateCategories) // Include the join entity
-                .ThenInclude(ltc => ltc.Category) // Then include Categories from the join entity
-                .Where(lt => lt.ListTemplateCategories != null && 
-                             lt.ListTemplateCategories.Any(ltc => ltc.Category.Name.Equals(category, StringComparison.OrdinalIgnoreCase)))
-                .ToList();
-
-            // Pass the search results to the view
-            ViewData["Lists"] = lists;
-            ViewData["Category"] = category;
-
-            return View(lists);
-        }
+       
     }
 }

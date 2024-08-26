@@ -17,15 +17,11 @@ namespace one2Do.Models
         // Lists associated with this category
         public virtual ICollection<ToDoList> ToDoLists { get; set; }
         // Connection to ToDoListCategory for many-to-many relation with ToDoLists
-        public virtual ICollection<ToDoListCategory> ToDoListCategories { get; set; }
-        // Connection to ListTemplateCategory for linking with list templates
-        public virtual ICollection<ListTemplateCategory> ListTemplateCategories { get; set; }
+        
 
         public Category()
         {
             ToDoLists = new HashSet<ToDoList>();
-            ToDoListCategories = new HashSet<ToDoListCategory>();
-            ListTemplateCategories = new HashSet<ListTemplateCategory>();
         }
     }
 }

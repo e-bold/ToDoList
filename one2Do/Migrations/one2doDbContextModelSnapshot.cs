@@ -199,55 +199,6 @@ namespace one2Do.Migrations
                     b.ToTable("Images");
                 });
 
-            modelBuilder.Entity("one2Do.Models.ListTemplate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Title")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ListTemplates");
-                });
-
-            modelBuilder.Entity("one2Do.Models.ListTemplateCategory", b =>
-                {
-                    b.Property<int>("ListTemplateId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ListTemplateId", "CategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("ListTemplateCategories");
-                });
-
-            modelBuilder.Entity("one2Do.Models.QuoteModels.Quote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Quotes");
-                });
-
             modelBuilder.Entity("one2Do.Models.ToDoModels.TaskItem", b =>
                 {
                     b.Property<int>("Id")
@@ -266,15 +217,10 @@ namespace one2Do.Migrations
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("ListTemplateId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ToDoListId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ListTemplateId");
 
                     b.HasIndex("ToDoListId");
 
@@ -313,24 +259,6 @@ namespace one2Do.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ToDoLists");
-                });
-
-            modelBuilder.Entity("one2Do.Models.ToDoModels.ToDoListCategory", b =>
-                {
-                    b.Property<int>("ToDoListId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ToDoListCategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ToDoListId", "CategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("ToDoListCategories");
                 });
 
             modelBuilder.Entity("one2Do.Models.User", b =>
@@ -498,31 +426,8 @@ namespace one2Do.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("one2Do.Models.ListTemplateCategory", b =>
-                {
-                    b.HasOne("one2Do.Models.Category", "Category")
-                        .WithMany("ListTemplateCategories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("one2Do.Models.ListTemplate", "ListTemplate")
-                        .WithMany("ListTemplateCategories")
-                        .HasForeignKey("ListTemplateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("ListTemplate");
-                });
-
             modelBuilder.Entity("one2Do.Models.ToDoModels.TaskItem", b =>
                 {
-                    b.HasOne("one2Do.Models.ListTemplate", null)
-                        .WithMany("TaskItems")
-                        .HasForeignKey("ListTemplateId");
-
                     b.HasOne("one2Do.Models.ToDoModels.ToDoList", "ToDoList")
                         .WithMany("TaskItems")
                         .HasForeignKey("ToDoListId")
@@ -549,25 +454,6 @@ namespace one2Do.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("one2Do.Models.ToDoModels.ToDoListCategory", b =>
-                {
-                    b.HasOne("one2Do.Models.Category", "Category")
-                        .WithMany("ToDoListCategories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("one2Do.Models.ToDoModels.ToDoList", "ToDoList")
-                        .WithMany("ToDoListCategories")
-                        .HasForeignKey("ToDoListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("ToDoList");
                 });
 
             modelBuilder.Entity("one2Do.WeatherModel.City", b =>
@@ -583,25 +469,12 @@ namespace one2Do.Migrations
 
             modelBuilder.Entity("one2Do.Models.Category", b =>
                 {
-                    b.Navigation("ListTemplateCategories");
-
-                    b.Navigation("ToDoListCategories");
-
                     b.Navigation("ToDoLists");
-                });
-
-            modelBuilder.Entity("one2Do.Models.ListTemplate", b =>
-                {
-                    b.Navigation("ListTemplateCategories");
-
-                    b.Navigation("TaskItems");
                 });
 
             modelBuilder.Entity("one2Do.Models.ToDoModels.ToDoList", b =>
                 {
                     b.Navigation("TaskItems");
-
-                    b.Navigation("ToDoListCategories");
                 });
 
             modelBuilder.Entity("one2Do.Models.User", b =>

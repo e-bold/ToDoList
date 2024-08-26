@@ -1,8 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using one2Do;
-using Microsoft.AspNetCore.Identity;
+using one2Do.Data; // included needed using statement
 using one2Do.Models;
-using one2Do.Data;  // included needed using statement 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,20 +17,22 @@ builder.Services.AddRazorPages();
 var connectionString = "server=localhost;user=one2do;password=gitglobal;database=one2do";
 var serverVersion = new MySqlServerVersion(new Version(8, 0, 37));
 
-builder.Services.AddDbContext<one2doDbContext>(dbContextOptions => 
-    dbContextOptions.UseMySql(connectionString, serverVersion));
+builder.Services.AddDbContext<one2doDbContext>(dbContextOptions =>
+    dbContextOptions.UseMySql(connectionString, serverVersion)
+);
 
 //Following code was edited. Commented the original builder
 // builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<one2doDbContext>();
-builder.Services.AddIdentity<User, IdentityRole>(
-    options => 
+builder
+    .Services.AddIdentity<User, IdentityRole>(options =>
     {
         options.SignIn.RequireConfirmedAccount = false;
         options.Password.RequireNonAlphanumeric = false;
     })
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<one2doDbContext>().AddDefaultTokenProviders().AddDefaultUI();
-
+    .AddEntityFrameworkStores<one2doDbContext>()
+    .AddDefaultTokenProviders()
+    .AddDefaultUI();
 
 var app = builder.Build();
 
@@ -52,9 +54,7 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllers();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
 // Call the DbInitializer to seed the database with quotes
 
@@ -62,18 +62,15 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    DbInitializer.Initialize(services);
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-    var roles = new[] { "Basic", "Premium", "Admin"};
+    var roles = new[] { "Basic", "Premium", "Admin" };
 
     foreach (var role in roles)
     {
-        if(!await roleManager.RoleExistsAsync(role))
-        await roleManager.CreateAsync(new IdentityRole(role));
+        if (!await roleManager.RoleExistsAsync(role))
+            await roleManager.CreateAsync(new IdentityRole(role));
     }
 }
-
-
 
 app.Run();
