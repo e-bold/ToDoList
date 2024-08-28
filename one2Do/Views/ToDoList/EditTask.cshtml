@@ -1,0 +1,29 @@
+@model one2Do.Models.ToDoModels.TaskItem
+
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="EditTask">
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IsCompleted" class="control-label"></label>
+        <input asp-for="IsCompleted" type="checkbox" />
+        <span asp-validation-for="IsCompleted" class="text-danger"></span>
+    </div>
+    <input type="hidden" asp-for="ToDoListId" />
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Details" asp-route-id="@Model.ToDoListId" class="btn btn-secondary">Back to List</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

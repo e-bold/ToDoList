@@ -4,11 +4,8 @@ namespace one2Do.ViewModels
 {
     public class ToDoListViewModel
     {
-
-        public int TotalTasks {get; set;}
-        public int CompletedTasks {get; set;}
-
-        public List<ToDoListItemViewModel> ToDoItems { get; set; } = new List<ToDoListItemViewModel>();
-
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public List<TaskItemViewModel> TaskItems { get; set; } = new List<TaskItemViewModel>();
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace one2Do.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialbuild : Migration
+    public partial class InitialBuild : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -275,9 +275,7 @@ namespace one2Do.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -292,8 +290,7 @@ namespace one2Do.Migrations
                         name: "FK_ToDoLists_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -305,9 +302,8 @@ namespace one2Do.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DueDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsCompleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ToDoListId = table.Column<int>(type: "int", nullable: false)
+                    ToDoListId = table.Column<int>(type: "int", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
