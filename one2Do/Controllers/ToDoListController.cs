@@ -27,23 +27,27 @@ namespace one2Do.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = _userManager.GetUserId(User);
-            var lists = await _context.ToDoLists
-                .Where(l => l.UserId == userId)
+            var lists = await _context
+                .ToDoLists.Where(l => l.UserId == userId)
                 .Include(l => l.TaskItems)
                 .ToListAsync();
 
-            var viewModel = lists.Select(l => new ToDoListViewModel
-            {
-                Id = l.Id,
-                Title = l.Title,
-                TaskItems = l.TaskItems.Select(t => new TaskItemViewModel
+            var viewModel = lists
+                .Select(l => new ToDoListViewModel
                 {
-                    Id = t.Id,
-                    Description = t.Description,
-                    IsCompleted = t.IsCompleted,
-                    ToDoListId = t.ToDoListId
-                }).ToList()
-            }).ToList();
+                    Id = l.Id,
+                    Title = l.Title,
+                    TaskItems = l
+                        .TaskItems.Select(t => new TaskItemViewModel
+                        {
+                            Id = t.Id,
+                            Description = t.Description,
+                            IsCompleted = t.IsCompleted,
+                            ToDoListId = t.ToDoListId
+                        })
+                        .ToList()
+                })
+                .ToList();
 
             return View(viewModel);
         }
@@ -52,8 +56,8 @@ namespace one2Do.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var userId = _userManager.GetUserId(User);
-            var list = await _context.ToDoLists
-                .Where(l => l.UserId == userId && l.Id == id)
+            var list = await _context
+                .ToDoLists.Where(l => l.UserId == userId && l.Id == id)
                 .Include(l => l.TaskItems)
                 .FirstOrDefaultAsync();
 
@@ -64,13 +68,15 @@ namespace one2Do.Controllers
             {
                 Id = list.Id,
                 Title = list.Title,
-                TaskItems = list.TaskItems.Select(t => new TaskItemViewModel
-                {
-                    Id = t.Id,
-                    Description = t.Description,
-                    IsCompleted = t.IsCompleted,
-                    ToDoListId = t.ToDoListId
-                }).ToList()
+                TaskItems = list
+                    .TaskItems.Select(t => new TaskItemViewModel
+                    {
+                        Id = t.Id,
+                        Description = t.Description,
+                        IsCompleted = t.IsCompleted,
+                        ToDoListId = t.ToDoListId
+                    })
+                    .ToList()
             };
 
             return View(viewModel);
@@ -91,11 +97,7 @@ namespace one2Do.Controllers
             {
                 var userId = _userManager.GetUserId(User);
 
-                var list = new ToDoList
-                {
-                    Title = viewModel.Title,
-                    UserId = userId
-                };
+                var list = new ToDoList { Title = viewModel.Title, UserId = userId };
 
                 _context.ToDoLists.Add(list);
                 await _context.SaveChangesAsync();
@@ -108,18 +110,14 @@ namespace one2Do.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var userId = _userManager.GetUserId(User);
-            var list = await _context.ToDoLists
-                .Where(l => l.UserId == userId && l.Id == id)
+            var list = await _context
+                .ToDoLists.Where(l => l.UserId == userId && l.Id == id)
                 .FirstOrDefaultAsync();
 
             if (list == null)
                 return NotFound();
 
-            var viewModel = new ToDoListViewModel
-            {
-                Id = list.Id,
-                Title = list.Title
-            };
+            var viewModel = new ToDoListViewModel { Id = list.Id, Title = list.Title };
 
             return View(viewModel);
         }
@@ -134,9 +132,7 @@ namespace one2Do.Controllers
 
             if (ModelState.IsValid)
             {
-                var list = await _context.ToDoLists
-                    .Where(l => l.Id == id)
-                    .FirstOrDefaultAsync();
+                var list = await _context.ToDoLists.Where(l => l.Id == id).FirstOrDefaultAsync();
 
                 if (list == null)
                     return NotFound();
@@ -157,8 +153,8 @@ namespace one2Do.Controllers
                 return NotFound();
 
             var userId = _userManager.GetUserId(User);
-            var list = await _context.ToDoLists
-                .Where(l => l.UserId == userId && l.Id == id)
+            var list = await _context
+                .ToDoLists.Where(l => l.UserId == userId && l.Id == id)
                 .Include(l => l.TaskItems)
                 .FirstOrDefaultAsync();
 
@@ -169,12 +165,14 @@ namespace one2Do.Controllers
             {
                 Id = list.Id,
                 Title = list.Title,
-                TaskItems = list.TaskItems.Select(task => new TaskItemViewModel
-                {
-                    Id = task.Id,
-                    Description = task.Description,
-                    IsCompleted = task.IsCompleted
-                }).ToList()
+                TaskItems = list
+                    .TaskItems.Select(task => new TaskItemViewModel
+                    {
+                        Id = task.Id,
+                        Description = task.Description,
+                        IsCompleted = task.IsCompleted
+                    })
+                    .ToList()
             };
 
             return View(viewModel);
@@ -186,8 +184,8 @@ namespace one2Do.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var userId = _userManager.GetUserId(User);
-            var list = await _context.ToDoLists
-                .Where(l => l.UserId == userId && l.Id == id)
+            var list = await _context
+                .ToDoLists.Where(l => l.UserId == userId && l.Id == id)
                 .Include(l => l.TaskItems) // Ensure that related TaskItems are loaded
                 .FirstOrDefaultAsync();
 

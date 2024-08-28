@@ -4,7 +4,6 @@
     ViewData["Title"] = "Edit To-Do List";
 }
 
-<h2>@ViewData["Title"]</h2>
 
 <h4>Edit To-Do List</h4>
 <hr />
@@ -17,10 +16,13 @@
     </div>
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-secondary">Delete List</a>
         <a asp-action="Index" class="btn btn-secondary">Back to List</a>
     </div>
 </form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -4,26 +4,17 @@
     ViewData["Title"] = "To-Do Lists";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; background-color: #f7f7f7;">
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New List</a>
-</p>
+    <!-- Plus sign button for creating a new list -->
+    <div
+        style="display: flex; align-items: center; justify-content: center; width: 300px; height: 200px; background: #fff7e6; border: 2px dashed #e6e6e6; border-radius: 10px; cursor: pointer;">
+        <a asp-action="Create" style="text-decoration: none; color: #333; font-size: 50px; font-weight: bold;">
+            +
+        </a>
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                List Title
-            </th>
-            <th>
-                Tasks
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+    @foreach (var item in Model)
 
 
 
@@ -31,14 +22,6 @@
 
 
 
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    <ul>
-                        @foreach (var task in item.TaskItems)
 
 
 
@@ -46,13 +29,6 @@
 
 
 
-                        {
-                            <li>
-                                <form asp-action="ToggleComplete" asp-controller="TaskItem" method="post">
-                                    <input type="hidden" name="id" value="@task.Id" />
-                                    <input type="checkbox" name="IsCompleted" @(task.IsCompleted ? "checked" : "")
-                                        onchange="this.form.submit()" />
-                                    @if (task.IsCompleted)
 
 
 
@@ -60,9 +36,6 @@
 
 
 
-                                    {
-                                        <s>@task.Description</s>
-                                    }
 
 
 
@@ -70,7 +43,6 @@
 
 
 
-                                    else
 
 
 
@@ -78,20 +50,131 @@
 
 
 
-                                    {
-                                        @task.Description
-                                    }
-                                </form>
-                            </li>
-                        }
-                    </ul>
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {
+        <div
+            style="width: 300px; background: #fff7e6; border: 1px solid #e6e6e6; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); border-radius: 10px; overflow: hidden;">
+            <div style="padding: 20px; background: #ffd966; border-bottom: 1px solid #e6e6e6;">
+                <a asp-action="Edit" asp-route-id="@item.Id" style="text-decoration: none; color: inherit;">
+                    <h3 style="margin: 0; font-family: 'Comic Sans MS', cursive, sans-serif; cursor: pointer;">@item.Title
+                    </h3>
+                </a>
+            </div>
+            <div style="padding: 15px; font-family: Arial, sans-serif;">
+                <ul style="list-style-type: none; padding-left: 0;">
+                    @foreach (var task in item.TaskItems)
+                    {
+                        <li style="margin-bottom: 10px;">
+                            <form asp-action="ToggleComplete" asp-controller="TaskItem" method="post" class="task-form">
+                                <input type="hidden" name="id" value="@task.Id" />
+                                <span onclick="this.closest('form').submit();"
+                                    style="cursor: pointer; @((task.IsCompleted ? "text-decoration: line-through; color: gray;" : ""))">
+                                    @task.Description
+                                </span>
+                            </form>
+                        </li>
+                    }
+                </ul>
+                <div style="text-align: center; margin-top: 10px;">
+                    <a asp-action="Create" asp-controller="TaskItem" asp-route-toDoListId="@item.Id"
+                        class="btn btn-primary btn-sm">+ Add Task</a>
+                </div>
+                <div style="text-align: center; margin-top: 10px;">
+                    <a asp-action="Details" asp-controller="ToDoList" asp-route-id="@item.Id"
+                        class="btn btn-primary btn-sm">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

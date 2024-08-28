@@ -22,10 +22,7 @@ namespace one2Do.Controllers
         // GET: TaskItem/Create
         public IActionResult Create(int toDoListId)
         {
-            var viewModel = new TaskItemViewModel
-            {
-                ToDoListId = toDoListId
-            };
+            var viewModel = new TaskItemViewModel { ToDoListId = toDoListId };
             return View(viewModel);
         }
 
@@ -103,8 +100,8 @@ namespace one2Do.Controllers
         // GET: TaskItem/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            var taskItem = await _context.TaskItems
-                .Include(t => t.ToDoList)
+            var taskItem = await _context
+                .TaskItems.Include(t => t.ToDoList)
                 .FirstOrDefaultAsync(t => t.Id == id);
             if (taskItem == null)
             {
@@ -128,7 +125,6 @@ namespace one2Do.Controllers
 
             return RedirectToAction("Details", "ToDoList", new { id = taskItem?.ToDoListId });
         }
-
 
         [HttpPost]
         public async Task<IActionResult> ToggleComplete(int id)

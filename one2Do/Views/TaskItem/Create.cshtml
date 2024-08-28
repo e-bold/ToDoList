@@ -15,10 +15,12 @@
     <input type="hidden" asp-for="ToDoListId" />
     <div class="form-group">
         <input type="submit" value="Create" class="btn btn-primary" />
-        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        <a asp-controller="ToDoList" asp-action="Index" class="btn btn-secondary">Back to List</a>
     </div>
 </form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
