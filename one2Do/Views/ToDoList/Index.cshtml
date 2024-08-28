@@ -5,7 +5,6 @@
 }
 
 <div style="display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; background-color: #f7f7f7;">
-
     <!-- Plus sign button for creating a new list -->
     <div
         style="display: flex; align-items: center; justify-content: center; width: 300px; height: 200px; background: #fff7e6; border: 2px dashed #e6e6e6; border-radius: 10px; cursor: pointer;">
@@ -15,133 +14,6 @@
     </div>
 
     @foreach (var item in Model)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     {
         <div
             style="width: 300px; background: #fff7e6; border: 1px solid #e6e6e6; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); border-radius: 10px; overflow: hidden;">
@@ -167,12 +39,12 @@
                     }
                 </ul>
                 <div style="text-align: center; margin-top: 10px;">
+                    <!-- Add Task Button -->
                     <a asp-action="Create" asp-controller="TaskItem" asp-route-toDoListId="@item.Id"
-                        class="btn btn-primary btn-sm">+ Add Task</a>
-                </div>
-                <div style="text-align: center; margin-top: 10px;">
+                        class="btn btn-primary btn-sm">+ Add</a>
+                    <!-- Edit Button for ToDoList -->
                     <a asp-action="Details" asp-controller="ToDoList" asp-route-id="@item.Id"
-                        class="btn btn-primary btn-sm">Details</a>
+                        class="btn btn-primary btn-sm">Edit</a>
                 </div>
             </div>
         </div>

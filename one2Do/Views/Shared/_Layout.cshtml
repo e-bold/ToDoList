@@ -28,7 +28,15 @@
                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
-                        @if (SignInManager.IsSignedIn(User))
+                        
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="ListUsers">Admin</a>
+                                </li>
+                            } else {
+                                @if (SignInManager.IsSignedIn(User))
                         {
                             @if (User.IsInRole("Premium"))
                                 {
@@ -45,13 +53,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Image" asp-action="Index">Gallery</a>
                             </li>
-
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="ListUsers">Admin</a>
-                                </li>
-                            } 
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ToDoList" asp-action="Index">Your Lists</a>
+                            </li>
+                            }
                         }                        
                     </ul>
                     </ul>
@@ -68,7 +73,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - one2Do - Git Global Inc.
+            &copy; 2024 - one2Do
             @if (SignInManager.IsSignedIn(User))
                         {<a href="/User/Index">Back to home</a>}
         </div>

@@ -45,7 +45,7 @@ public class AccountController : Controller
                     user.StreakPoints += 1;
                     await userManager.UpdateAsync(user);
 
-                    return RedirectToAction("Index", "User");
+                    return RedirectToAction("Index", "ToDoList");
                 }
                 ModelState.AddModelError("", "Invalid login attempt.");
             }
