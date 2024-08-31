@@ -1,0 +1,43 @@
+@model one2Do.ViewModels.ToDoListViewModel
+
+@{
+    ViewData["Title"] = "To-Do List Details";
+}
+
+
+
+<h2>@Model.Title</h2>
+
+<div>
+    <h5>Tasks:</h5>
+    <ul>
+        @foreach (var task in Model.TaskItems)
+        {
+            <li style="display: flex; align-items: center; justify-content: space-between;">
+                @if (task.IsCompleted)
+                {
+                    <s>@task.Description</s>
+                }
+                else
+                {
+                    @task.Description
+                }
+
+                <div>
+                    <!-- Edit Button -->
+                    <a asp-action="Edit" asp-controller="TaskItem" asp-route-id="@task.Id"
+                        class="btn btn-warning btn-sm">Edit</a>
+
+                    <!-- Delete Button -->
+                    <form asp-action="Delete" asp-controller="TaskItem" method="post" style="display: inline;">
+                        <input type="hidden" name="id" value="@task.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>
+                    </form>
+                </div>
+            </li>
+        }
+    </ul>
+    <a asp-action="Create" asp-controller="TaskItem" asp-route-toDoListId="@Model.Id" class="btn btn-primary">Add
+        Task</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

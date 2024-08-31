@@ -12,8 +12,8 @@ using one2Do.Data;
 namespace one2Do.Migrations
 {
     [DbContext(typeof(one2doDbContext))]
-    [Migration("20240826232423_Initial build")]
-    partial class Initialbuild
+    [Migration("20240828182642_ third")]
+    partial class third
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -214,9 +214,6 @@ namespace one2Do.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime?>("DueDate")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("tinyint(1)");
 
@@ -238,14 +235,8 @@ namespace one2Do.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -442,19 +433,15 @@ namespace one2Do.Migrations
 
             modelBuilder.Entity("one2Do.Models.ToDoModels.ToDoList", b =>
                 {
-                    b.HasOne("one2Do.Models.Category", "Category")
+                    b.HasOne("one2Do.Models.Category", null)
                         .WithMany("ToDoLists")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("one2Do.Models.User", "User")
                         .WithMany("ToDoLists")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
 
                     b.Navigation("User");
                 });

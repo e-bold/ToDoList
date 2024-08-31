@@ -1,21 +1,23 @@
 @model one2Do.ViewModels.TaskItemViewModel
 
 @{
-    ViewData["Title"] = "Create Task";
+    ViewData["Title"] = "Edit Task";
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<form asp-action="Create">
+<form asp-action="Edit">
     <div class="form-group">
         <label asp-for="Description" class="control-label"></label>
         <input asp-for="Description" class="form-control" />
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
+    <input type="hidden" asp-for="Id" />
     <input type="hidden" asp-for="ToDoListId" />
     <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
-        <a asp-controller="ToDoList" asp-action="Index" class="btn btn-secondary">Back to List</a>
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-controller="ToDoList" asp-action="Details" asp-route-id="@Model.ToDoListId"
+            class="btn btn-secondary">Back to List</a>
     </div>
 </form>
 
